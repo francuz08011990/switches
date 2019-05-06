@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All vendors</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>All switch vendors:</h2>
+            <table class='table table-bordered'>
+                <tr class='table-success'>
+                    <td>ID</td>
+                    <td>Vendor</td>
+                </tr>
+                <tr>
+                    <td id="ID"></td>
+                    <td id="Name"></td>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+let myObj, x, id="", vend="";
+xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState === 4 && this.status === 200) {
+    myObj = JSON.parse(this.responseText);
+
+    for (x in myObj) {
+      id += myObj[x].id + "<br>";
+    }
+    id += document.getElementById("ID").innerHTML = id;
+
+    for (x in myObj) {
+        vend += myObj[x].title + "<br>";
+    }
+    vend += document.getElementById("Name").innerHTML = vend;
+  }
+};
+xmlhttp.open("GET", "/app/api/vendors/", true);
+xmlhttp.send();
+</script>
+</body>
+</html>

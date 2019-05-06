@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User places</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>All switch vendors:</h2>
+            <button class="btn btn-info" onclick=myFunc()>Get User Places</button>
+        </div>
+        <div class="col-md-6">
+            <p id="demo">
+        </div>
+    </div>
+</div>
+<script>
+    function myFunc () {
+        let myObj, x, txt = "";
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+            myObj = JSON.parse(this.responseText);
+            txt += "<table class='table table-bordered'><tr class='table-success'>" +
+                "<td><b>ID</b></td>" +
+                "<td><b>Street</b></td>" +
+                "<td><b>Ip</b></td>" +
+                "<td><b>MAC</b></td></tr>";
+            for (x in myObj) {
+              txt += "<tr><td>" + myObj[x].id + "</td><td>" + myObj[x].street + "</td><td>" + myObj[x].ip + "</td><td>" + myObj[x].mac + "</td></tr>";
+
+            }
+            txt += "</table>";
+            document.getElementById('demo').innerHTML = txt;
+          }
+        };
+        xmlhttp.open("GET", "/app/api/user_places/", true);
+        xmlhttp.send();
+    }
+</script>
+</body>
+</html>
